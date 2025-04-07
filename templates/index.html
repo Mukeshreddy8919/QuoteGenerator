@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Quote Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <video autoplay muted loop id="bg-video">
+        <source src="{{ url_for('static', filename='home-background.mp4') }}" type="video/mp4">
+       
+      </video>
+  <div class="container">
+    <h1>AI Quote Generator</h1>
+    <div id="quote-box">Click "Generate" to get an inspirational quote.</div>
+    <button onclick="generateQuote()">Generate</button>
+  </div>
+
+  <script >
+    function generateQuote() {
+        fetch('/get_quote?ts=' + new Date().getTime(), {
+          method: 'POST'
+        })
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('quote-box').innerText = data.reply;
+        })
+        .catch(err => {
+          document.getElementById('quote-box').innerText = "Oops! Something went wrong.";
+          console.error(err);
+        });
+      }
+      
+  </script>
+</body>
+</html>
+
