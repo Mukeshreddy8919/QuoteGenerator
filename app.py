@@ -11,7 +11,7 @@ def index():
 @app.route('/get_quote', methods=['POST'])
 def get_quote():
     try:
-        res = requests.get("http://api.quotable.io/random?tags=inspirational")
+        res = requests.get("https://api.quotable.io/random?tags=inspirational")
         res.raise_for_status()
         data = res.json()
         quote = f"{data['content']} — {data['author']}"
