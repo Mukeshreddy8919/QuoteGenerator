@@ -17,22 +17,7 @@
     <button onclick="generateQuote()">Generate</button>
   </div>
 
-  <script >
-    function generateQuote() {
-        fetch('/get_quote?ts=' + new Date().getTime(), {
-          method: 'POST'
-        })
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById('quote-box').innerText = data.reply;
-        })
-        .catch(err => {
-          document.getElementById('quote-box').innerText = "Oops! Something went wrong.";
-          console.error(err);
-        });
-      }
-      
-  </script>
+   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
 
