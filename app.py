@@ -1,8 +1,6 @@
-# app.py
 from flask import Flask, render_template, jsonify, request
 import requests
 import certifi
-import os # Import os to access environment variables
 
 app = Flask(__name__)
 
@@ -37,9 +35,8 @@ def get_quote():
 # This block is for running locally (e.g., python app.py)
 # Gunicorn/Railway will ignore this based on the Procfile/Start Command
 if __name__ == '__main__':
-    # Use the PORT environment variable if available, otherwise default to 5000
-    port = int(os.environ.get('PORT', 5000))
+    # Use a default port if no environment variable is available.
+    port = 5000
     # Run on 0.0.0.0 to be accessible externally if needed locally
     app.run(host='0.0.0.0', port=port, debug=True)
-
 
