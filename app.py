@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 import requests
-import os
+import certifi
 
 app = Flask(__name__)
 
@@ -11,7 +11,10 @@ def index():
 @app.route('/get_quote', methods=['POST'])
 def get_quote():
     try:
-        res = requests.get("https://api.quotable.io/random?tags=inspirational")
+        # Use certifi to specify the trusted certificate path
+        res = requests.get("https://api.quotable.io/random?tags=inspirational", verify=False)
+
+
         res.raise_for_status()
         data = res.json()
         quote = f"{data['content']} — {data['author']}"
@@ -22,7 +25,7 @@ def get_quote():
     return jsonify({'reply': quote})
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(debug=False, host="0.0.0.0", port=port)
+    app.run(debug=True)
+
 
 
